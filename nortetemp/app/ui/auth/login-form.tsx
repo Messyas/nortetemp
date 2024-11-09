@@ -7,14 +7,15 @@ import {
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import { handleSignIn } from "@/lib/cognitoActions";
 import { lusitana } from "../fonts";
 import { Button } from "../button";
+import { useActionState } from "react";
 
 export default function LoginForm() {
-  const [errorMessage, dispatch] = useFormState(handleSignIn, undefined);
+  const [errorMessage, dispatch] = useActionState(handleSignIn, undefined);
   return (
     <form action={dispatch} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
