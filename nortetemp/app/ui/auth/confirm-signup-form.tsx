@@ -6,14 +6,15 @@ import {
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import SendVerificationCode from "./send-verification-code-form";
 import { lusitana } from "../fonts";
 import { Button } from "../button";
 import { handleConfirmSignUp } from "@/lib/cognitoActions";
+import { useActionState } from "react";
 
 export default function ConfirmSignUpForm() {
-  const [errorMessage, dispatch] = useFormState(handleConfirmSignUp, undefined);
+  const [errorMessage, dispatch] = useActionState(handleConfirmSignUp, undefined);
   return (
     <form action={dispatch} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
