@@ -15,7 +15,7 @@ export default function NavLinks() {
 
   // Cria uma cópia dos links sem modificar o array original
   const userLinks = [
-    { name: 'dashboard', href: '/dashboard', icon: HomeIcon }
+    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon }
   ];
 
   // Condicionalmente adiciona o link de Configurações

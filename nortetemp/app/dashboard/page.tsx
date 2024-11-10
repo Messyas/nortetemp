@@ -1,3 +1,3 @@
 export default function Page() {
-    return <p>Pagina de configuracoes</p>;
+    return <p>Pagina do dashboard</p>;
 }
