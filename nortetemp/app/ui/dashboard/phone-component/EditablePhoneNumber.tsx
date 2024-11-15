@@ -46,7 +46,7 @@ const EditablePhoneNumber: React.FC<EditablePhoneNumberProps> = ({ initialPhone 
           />
           <button
             onClick={handleSave}
-            className="px-3 py-1 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+            className="px-3 py-1 text-white bg-blue-500 rounded-md hover:bg-blue-500"
           >
             Salvar
           </button>

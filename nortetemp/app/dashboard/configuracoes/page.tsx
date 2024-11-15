@@ -11,7 +11,7 @@ export default function Page() {
       </p>
 
       <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Editar Número de Telefone</h1>
+      <h1 className="text-1xl font-bold mb-4">Editar Número de Telefone</h1>
       <EditablePhoneNumber initialPhone="(11) 91234-5678" />
     </div>
 
