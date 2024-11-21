@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint",
+  "postinstall": "npm install --legacy-peer-deps"
+},
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "^1.2.26",
     "@heroicons/react": "^2.1.5",
+    "aws-amplify": "^6.9.0",
     "axios": "^1.7.7",
     "chart.js": "^4.4.6",
     "clsx": "^2.1.1",
