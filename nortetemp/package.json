@@ -3,21 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint",
+  "postinstall": "npm install --legacy-peer-deps"
+},
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "^1.2.26",
     "@heroicons/react": "^2.1.5",
-    "aws-amplify": "^6.8.0",
-    "aws-sdk": "^2.1692.0",
+    "aws-amplify": "^6.9.0",
+    "axios": "^1.7.7",
+    "chart.js": "^4.4.6",
     "clsx": "^2.1.1",
     "next": "15.0.2",
     "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028",
-    "react-input-mask": "^2.0.4"
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "19.0.0-rc-02c0e824-20241028"
   },
   "devDependencies": {
     "@types/node": "^20",
