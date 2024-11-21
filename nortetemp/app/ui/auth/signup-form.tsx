@@ -20,7 +20,7 @@ export default function SignUpForm() {
     <form action={dispatch} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className={`${lusitana.className} mb-3 text-2xl`}>
-          Please create an account.
+          Por favor, crie uma conta.
         </h1>
         <div className="w-full">
           <div>
@@ -28,7 +28,7 @@ export default function SignUpForm() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="name"
             >
-              Name
+              Nome
             </label>
             <div className="relative">
               <input
@@ -37,7 +37,7 @@ export default function SignUpForm() {
                 type="text"
                 name="name"
                 minLength={4}
-                placeholder="Enter your name"
+                placeholder="Digite o seu nome"
                 required
               />
               <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -56,7 +56,7 @@ export default function SignUpForm() {
                 id="email"
                 type="email"
                 name="email"
-                placeholder="Enter your email address"
+                placeholder="Digite seu endereço de e-mail"
                 required
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -67,7 +67,7 @@ export default function SignUpForm() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="password"
             >
-              Password
+              Senha
             </label>
             <div className="relative">
               <input
@@ -75,7 +75,7 @@ export default function SignUpForm() {
                 id="password"
                 type="password"
                 name="password"
-                placeholder="Enter password"
+                placeholder="Digite sua senha"
                 required
                 minLength={6}
               />
@@ -89,7 +89,7 @@ export default function SignUpForm() {
             href="/auth/login"
             className="mt-2 cursor-pointer text-blue-500"
           >
-            Already have an account? Log in.
+            Já tem uma conta? Fazer login.
           </Link>
         </div>
         <div className="flex h-8 items-end space-x-1">
@@ -116,7 +116,7 @@ function SignUpButton() {
 
   return (
     <Button className="mt-4 w-full" aria-disabled={pending}>
-      Create account <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+      Criar uma conta <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );
 }

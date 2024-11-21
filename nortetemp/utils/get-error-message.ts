@@ -1,3 +1,4 @@
+// Função auxiliar para formatar mensagens de erro.
 export function getErrorMessage(error: unknown): string {
     if (error instanceof Error) {
       return error.message;

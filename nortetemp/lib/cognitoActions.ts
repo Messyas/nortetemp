@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"; // Utilitário para redirecionamento de páginas.
 import {
   signUp,
   confirmSignUp,
@@ -6,9 +6,10 @@ import {
   signOut,
   resendSignUpCode,
   autoSignIn
-} from "aws-amplify/auth";
-import { getErrorMessage } from "@/utils/get-error-message";
+} from "aws-amplify/auth"; // Funções de autenticação do AWS Amplify.
+import { getErrorMessage } from "@/utils/get-error-message"; // Função para lidar com mensagens de erro.
 
+// Função para tratar cadastro de novo usuário.
 export async function handleSignUp(
   prevState: string | undefined,
   formData: FormData
@@ -19,19 +20,19 @@ export async function handleSignUp(
       password: String(formData.get("password")),
       options: {
         userAttributes: {
-          email: String(formData.get("email")),
-          name: String(formData.get("name")),
+          email: String(formData.get("email")), // Atributo obrigatório.
+          name: String(formData.get("name")),  
         },
-        // optional
-        autoSignIn: true,
+        autoSignIn: true, // Efetua login automaticamente após cadastro.
       },
     });
   } catch (error) {
-    return getErrorMessage(error);
+    return getErrorMessage(error); // Retorna mensagem de erro, se houver.
   }
-  redirect("/auth/confirm-signup");
+  redirect("/auth/confirm-signup"); // Redireciona para confirmação de cadastro.
 }
 
+// Reenvia código de verificação para o e-mail do usuário.
 export async function handleSendEmailVerificationCode(
   prevState: { message: string; errorMessage: string },
   formData: FormData
@@ -51,10 +52,10 @@ export async function handleSendEmailVerificationCode(
       errorMessage: getErrorMessage(error),
     };
   }
-
   return currentState;
 }
 
+// Confirmação de código enviado para ativar a conta do usuário.
 export async function handleConfirmSignUp(
   prevState: string | undefined,
   formData: FormData
@@ -64,18 +65,19 @@ export async function handleConfirmSignUp(
       username: String(formData.get("email")),
       confirmationCode: String(formData.get("code")),
     });
-    autoSignIn();
+    autoSignIn(); // Faz login automático após ativação.
   } catch (error) {
     return getErrorMessage(error);
   }
-  redirect("/auth/login");
+  redirect("/auth/login"); // Redireciona para a página de login.
 }
 
+// Gerencia o login do usuário.
 export async function handleSignIn(
   prevState: string | undefined,
   formData: FormData
 ) {
-  let redirectLink = "/dashboard";
+  let redirectLink = "/dashboard"; // Destino padrão após login.
   try {
     const { isSignedIn, nextStep } = await signIn({
       username: String(formData.get("email")),
@@ -85,20 +87,20 @@ export async function handleSignIn(
       await resendSignUpCode({
         username: String(formData.get("email")),
       });
-      redirectLink = "/auth/confirm-signup";
+      redirectLink = "/auth/confirm-signup"; // Redireciona para confirmação de cadastro.
     }
   } catch (error) {
     return getErrorMessage(error);
   }
-
-  redirect(redirectLink);
+  redirect(redirectLink); // Redireciona para a página apropriada após login.
 }
 
+// Realiza logout do sistema.
 export async function handleSignOut() {
   try {
     await signOut();
   } catch (error) {
-    console.log(getErrorMessage(error));
+    console.log(getErrorMessage(error)); // Log de erros ao fazer logout.
   }
-  redirect("/auth/login");
+  redirect("/auth/login"); // Redireciona para a página de login após logout.
 }
