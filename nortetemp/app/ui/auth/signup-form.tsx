@@ -12,10 +12,13 @@ import Link from "next/link";
 import { handleSignUp } from "@/lib/cognitoActions";
 import { lusitana } from "../fonts";
 import { Button } from "../button";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
+import { UserTypeSelector } from "./userTypeSelector";
+
 
 export default function SignUpForm() {
   const [errorMessage, dispatch] = useActionState(handleSignUp, undefined);
+  const [userType, setUserType] = useState("padrao"); // Estado para o tipo de usuário
   return (
     <form action={dispatch} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
@@ -48,6 +51,8 @@ export default function SignUpForm() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="email"
             >
+            <UserTypeSelector userType={userType} setUserType={setUserType} />
+            
               Email
             </label>
             <div className="relative">
