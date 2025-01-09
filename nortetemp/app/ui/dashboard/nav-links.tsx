@@ -3,6 +3,7 @@
 import {
   HomeIcon,
   Cog6ToothIcon,
+  MapIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -15,7 +16,8 @@ export default function NavLinks() {
 
   // Cria uma cópia dos links sem modificar o array original
   const userLinks = [
-    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon }
+    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
+    { name: 'Mapa', href: '/map', icon: MapIcon },
   ];
 
   // Condicionalmente adiciona o link de Configurações
