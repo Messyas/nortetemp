@@ -1,38 +1,45 @@
-import { redirect } from "next/navigation"; // Utilitário para redirecionamento de páginas.
+import { redirect } from "next/navigation";
 import {
   signUp,
   confirmSignUp,
   signIn,
   signOut,
   resendSignUpCode,
-  autoSignIn
-} from "aws-amplify/auth"; // Funções de autenticação do AWS Amplify.
-import { getErrorMessage } from "@/utils/get-error-message"; // Função para lidar com mensagens de erro.
+  autoSignIn,
+  updateUserAttribute,
+  type UpdateUserAttributeOutput,
+  confirmUserAttribute,
+  updatePassword,
+  resetPassword,
+  confirmResetPassword,
+} from "aws-amplify/auth";
+import { getErrorMessage } from "@/utils/get-error-message";
 
-// Função para tratar cadastro de novo usuário.
 export async function handleSignUp(
   prevState: string | undefined,
   formData: FormData
 ) {
   try {
-    const { isSignUpComplete, userId, nextStep } = await signUp({
+    const userType = String(formData.get("userType")); // Obtendo o tipo de usuário passado
+
+    await signUp({
       username: String(formData.get("email")),
       password: String(formData.get("password")),
       options: {
         userAttributes: {
-          email: String(formData.get("email")), // Atributo obrigatório.
-          name: String(formData.get("name")),  
+          email: String(formData.get("email")),
+          name: String(formData.get("name")),
+          "custom:userType": userType, // Armazena o userType no Cognito
         },
-        autoSignIn: true, // Efetua login automaticamente após cadastro.
+        autoSignIn: true, 
       },
     });
   } catch (error) {
-    return getErrorMessage(error); // Retorna mensagem de erro, se houver.
+    return getErrorMessage(error);
   }
-  redirect("/auth/confirm-signup"); // Redireciona para confirmação de cadastro.
+  redirect("/auth/confirm-signup");
 }
 
-// Reenvia código de verificação para o e-mail do usuário.
 export async function handleSendEmailVerificationCode(
   prevState: { message: string; errorMessage: string },
   formData: FormData
@@ -52,10 +59,10 @@ export async function handleSendEmailVerificationCode(
       errorMessage: getErrorMessage(error),
     };
   }
+
   return currentState;
 }
 
-// Confirmação de código enviado para ativar a conta do usuário.
 export async function handleConfirmSignUp(
   prevState: string | undefined,
   formData: FormData
@@ -65,19 +72,18 @@ export async function handleConfirmSignUp(
       username: String(formData.get("email")),
       confirmationCode: String(formData.get("code")),
     });
-    autoSignIn(); // Faz login automático após ativação.
+    await autoSignIn();
   } catch (error) {
     return getErrorMessage(error);
   }
-  redirect("/auth/login"); // Redireciona para a página de login.
+  redirect("/auth/login");
 }
 
-// Gerencia o login do usuário.
 export async function handleSignIn(
   prevState: string | undefined,
   formData: FormData
 ) {
-  let redirectLink = "/dashboard"; // Destino padrão após login.
+  let redirectLink = "/dashboard";
   try {
     const { isSignedIn, nextStep } = await signIn({
       username: String(formData.get("email")),
@@ -87,20 +93,142 @@ export async function handleSignIn(
       await resendSignUpCode({
         username: String(formData.get("email")),
       });
-      redirectLink = "/auth/confirm-signup"; // Redireciona para confirmação de cadastro.
+      redirectLink = "/auth/confirm-signup";
     }
   } catch (error) {
     return getErrorMessage(error);
   }
-  redirect(redirectLink); // Redireciona para a página apropriada após login.
+
+  redirect(redirectLink);
 }
 
-// Realiza logout do sistema.
 export async function handleSignOut() {
   try {
     await signOut();
   } catch (error) {
-    console.log(getErrorMessage(error)); // Log de erros ao fazer logout.
+    console.log(getErrorMessage(error));
   }
-  redirect("/auth/login"); // Redireciona para a página de login após logout.
+  redirect("/auth/login");
+}
+
+export async function handleUpdateUserAttribute(
+  prevState: string,
+  formData: FormData
+) {
+  let attributeKey = "name";
+  let attributeValue;
+  let currentAttributeValue;
+
+  if (formData.get("email")) {
+    attributeKey = "email";
+    attributeValue = formData.get("email");
+    currentAttributeValue = formData.get("current_email");
+  } else {
+    attributeValue = formData.get("name");
+    currentAttributeValue = formData.get("current_name");
+  }
+
+  if (attributeValue === currentAttributeValue) {
+    return "";
+  }
+
+  try {
+    const output = await updateUserAttribute({
+      userAttribute: {
+        attributeKey: String(attributeKey),
+        value: String(attributeValue),
+      },
+    });
+    return handleUpdateUserAttributeNextSteps(output);
+  } catch (error) {
+    console.log(error);
+    return "error";
+  }
+}
+
+function handleUpdateUserAttributeNextSteps(output: UpdateUserAttributeOutput) {
+  const { nextStep } = output;
+
+  switch (nextStep.updateAttributeStep) {
+    case "CONFIRM_ATTRIBUTE_WITH_CODE":
+      const codeDeliveryDetails = nextStep.codeDeliveryDetails;
+      return `Confirmation code was sent to ${codeDeliveryDetails?.deliveryMedium}.`;
+    case "DONE":
+      return "success";
+  }
+}
+
+export async function handleUpdatePassword(
+  prevState: "success" | "error" | undefined,
+  formData: FormData
+) {
+  const currentPassword = formData.get("current_password");
+  const newPassword = formData.get("new_password");
+
+  if (currentPassword === newPassword) {
+    return;
+  }
+
+  try {
+    await updatePassword({
+      oldPassword: String(currentPassword),
+      newPassword: String(newPassword),
+    });
+  } catch (error) {
+    console.log(error);
+    return "error";
+  }
+
+  return "success";
+}
+
+export async function handleConfirmUserAttribute(
+  prevState: "success" | "error" | undefined,
+  formData: FormData
+) {
+  const code = formData.get("code");
+
+  if (!code) {
+    return;
+  }
+
+  try {
+    await confirmUserAttribute({
+      userAttributeKey: "email",
+      confirmationCode: String(code),
+    });
+  } catch (error) {
+    console.log(error);
+    return "error";
+  }
+
+  return "success";
+}
+
+export async function handleResetPassword(
+  prevState: string | undefined,
+  formData: FormData
+) {
+  try {
+    await resetPassword({ username: String(formData.get("email")) });
+  } catch (error) {
+    return getErrorMessage(error);
+  }
+  redirect("/auth/reset-password/confirm");
+}
+
+export async function handleConfirmResetPassword(
+  prevState: string | undefined,
+  formData: FormData
+) {
+  try {
+    await confirmResetPassword({
+      username: String(formData.get("email")),
+      confirmationCode: String(formData.get("code")),
+      newPassword: String(formData.get("password")),
+    });
+  } catch (error) {
+    return getErrorMessage(error);
+  }
+  redirect("/auth/login");
 }

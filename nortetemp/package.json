@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "^1.2.26",
+    "@aws-sdk/client-cognito-identity-provider": "^3.731.1",
     "@heroicons/react": "^2.1.5",
     "aws-amplify": "^6.9.0",
     "axios": "^1.7.9",

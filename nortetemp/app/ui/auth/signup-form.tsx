@@ -52,7 +52,7 @@ export default function SignUpForm() {
               htmlFor="email"
             >
             <UserTypeSelector userType={userType} setUserType={setUserType} />
-            
+            <input type="hidden" name="userType" value={userType} />
               Email
             </label>
             <div className="relative">
