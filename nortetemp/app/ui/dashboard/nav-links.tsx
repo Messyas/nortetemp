@@ -3,6 +3,9 @@
 import {
   HomeIcon,
   Cog6ToothIcon,
+  PencilSquareIcon,
+  CurrencyDollarIcon,
+  SunIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -13,18 +16,46 @@ export default function NavLinks() {
   const user = useAuthUser();
   const pathname = usePathname();
 
-  // Cria uma cópia dos links sem modificar o array original
+  // Criação dos links de navegação com base no tipo de usuário
   const userLinks = [
-    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon }
+    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
   ];
 
-  // Condicionalmente adiciona o link de Configurações
-  if (user && !userLinks.find(link => link.href === '/dashboard/configuracoes')) {
-    userLinks.push({
-      name: "Configurações",
-      href: "/dashboard/configuracoes",
-      icon: Cog6ToothIcon
-    });
+  if (user) {
+    // Adiciona a página de configurações para todos os usuários autenticados
+    if (!userLinks.find(link => link.href === '/dashboard/configuracoes')) {
+      userLinks.push({
+        name: 'Configurações',
+        href: '/dashboard/configuracoes',
+        icon: Cog6ToothIcon,
+      });
+    }
+    
+    if (!userLinks.find(link => link.href === '/dashboard/contribuir')) {
+      userLinks.push({
+        name: 'Contribua',
+        href: '/dashboard/contribuir',
+        icon: CurrencyDollarIcon,
+      });
+    }
+
+    // Adiciona página de jornalista, se o usuário for jornalista
+    if (user.userCategory === 'jornalista') {
+      userLinks.push({
+        name: 'Jornalista',
+        href: '/dashboard/jornalista',
+        icon: PencilSquareIcon,
+      });
+    }
+
+    // Adiciona página de agricultor, se o usuário for agricultor
+    if (user.userCategory === 'agricultor') {
+      userLinks.push({
+        name: 'Agricultor',
+        href: '/dashboard/agricultor',
+        icon: SunIcon, 
+      });
+    }
   }
 
   return (

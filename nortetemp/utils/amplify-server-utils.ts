@@ -1,15 +1,15 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 import { authConfig } from "@/app/seed/amplify-cognito-config";
 import { NextServer, createServerRunner } from "@aws-amplify/adapter-nextjs";
-import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth/server";
+import { fetchAuthSession, getCurrentUser, fetchUserAttributes } from "aws-amplify/auth/server";
 
-// representa o contexto do servidor Amplify para lidar com autenticação.
 export const { runWithAmplifyServerContext } = createServerRunner({
   config: {
     Auth: authConfig,
   },
 });
 
-// retorna o usuário autenticado no contexto do servidor Next.js.
 export async function authenticatedUser(context: NextServer.Context) {
   return await runWithAmplifyServerContext({
     nextServerContext: context,
@@ -17,14 +17,23 @@ export async function authenticatedUser(context: NextServer.Context) {
       try {
         const session = await fetchAuthSession(contextSpec);
         if (!session.tokens) {
-          return; // Retorna vazio se não houver sessão ativa.
+          return null;
         }
-        const user = {
-          ...(await getCurrentUser(contextSpec)) // Obtém informações do usuário autenticado.
+
+        // Buscar usuário autenticado
+        const user = await getCurrentUser(contextSpec);
+        const attributes = await fetchUserAttributes(contextSpec);
+
+        // Criar objeto com os dados relevantes
+        return {
+          ...user,
+          userCategory: attributes["custom:userType"], // Armazena a categoria do usuário
+          // @ts-ignore
+          isAdmin: session.tokens.accessToken.payload["cognito:groups"]?.includes("Admins") || false,
         };
-        return user;
       } catch (error) {
-        console.log(error); // Log de erros de autenticação.
+        console.log("Erro ao buscar usuario autenticado:", error);
+        return null;
       }
     },
   });
