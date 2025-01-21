@@ -1,78 +1,70 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { QrCodePix } from 'qrcode-pix';
-import domtoimage from 'dom-to-image';
-import { Button } from '@/app/ui/button';
+import { QRCodeCanvas } from "qrcode.react";
+import Image from "next/image";
 
 export default function Page() {
-  const [qrCode, setQrCode] = useState<string>('');
-  const [codigoPix, setCodigoPix] = useState<string>('');
-  const divRef = useRef(null);
-
-  const chavePix = '70252578260';
-  const nome = 'Messyas Gois Franca'; // Altere para o nome real do recebedor
-  const cidade = 'Manaus'; // Altere para a cidade real
-  const valor = 10; 
-
-  // Gera o QR Code Pix
-  useEffect(() => {
-    async function generatePix() {
-      const qrcodePix = QrCodePix({
-        version: '01',
-        key: chavePix,
-        name: nome,
-        city: cidade,
-        transactionId: 'doacao-pix',
-        message: 'Ajude nosso projeto!',
-        value: valor,
-      });
-
-      setCodigoPix(qrcodePix.payload());
-      setQrCode(await qrcodePix.base64());
-    }
-
-    generatePix();
-  }, []);
-
-  // Baixar QR Code como imagem
-  function downloadQRCode() {
-    if (!divRef.current) return;
-
-    domtoimage.toPng(divRef.current).then((url: string) => {
-      const link = document.createElement('a');
-      link.download = 'qrcode-pix.png';
-      link.href = url;
-      link.click();
-    });
-  }
+  const pixCode =
+    "00020101021126360014br.gov.bcb.pix0114+55929852227795204000053039865802BR5914MESSYAS FRANCA6006MANAUS62070503***63041133";
 
   return (
-    <div className="flex flex-col p-6 bg-gray-50 rounded-md shadow-md max-w-lg mx-auto text-center">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">
-        Contribua com a plataforma! 🚀
-      </h2>
-      <p className="text-gray-600 mb-6">
-        Ajude-nos a manter nosso projeto! Escaneie o QR Code abaixo ou copie o código Pix.
-      </p>
-
-      {/* Exibe o QR Code */}
-      {qrCode && (
-        <div ref={divRef} className="p-4 bg-white rounded-md shadow-sm inline-block">
-          <img src={qrCode} alt="QR Code Pix" className="w-48 h-48 mx-auto" />
+    <div className="h-screen w-full flex flex-col p-8 bg-gray-50">
+      {/* Cabeçalho e imagem ao lado */}
+      <div className="flex flex-col md:flex-row items-center justify-between mb-6">
+        <div className="flex-1">
+          <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center md:text-left">
+            🌤️ NorTemp - Monitorando o Tempo por Você
+          </h1>
         </div>
-      )}
+        <div className="flex-shrink-0">
+          <Image
+            src="/loginicon.png"
+            width={180}
+            height={136}
+            className="hidden md:block"
+            alt="Ícone que mostra uma nuvem"
+          />
+        </div>
+      </div>
 
-      {/* Exibe o Código Pix para cópia */}
-      <p className="mt-4 text-sm text-gray-700">Código Pix:</p>
-      <p className="text-sm font-mono bg-gray-200 p-2 rounded-md">{codigoPix}</p>
+      {/* Corpo do texto */}
+      <div className="flex-1 text-justify text-gray-700 leading-relaxed">
+        <p className="mb-4">
+          O <strong>NorTemp</strong> é um projeto idealizado por{" "}
+          <strong>Messyas e Lucas Medeiros</strong> com o propósito de oferecer
+          alertas periódicos sobre as condições climáticas. Nossa missão é
+          garantir que você esteja sempre bem informado sobre mudanças no
+          clima, permitindo uma melhor organização e planejamento do seu dia a
+          dia.
+        </p>
+        <p className="mb-4">
+          Utilizamos tecnologia confiável para coletar e fornecer informações
+          atualizadas, possibilitando que nossos usuários tomem decisões
+          baseadas em dados precisos. Nosso compromisso é manter você um passo
+          à frente das mudanças climáticas.
+        </p>
+      </div>
 
-      {/* Botões para baixar e copiar */}
-      <div className="flex gap-3 mt-4 justify-center">
-        <Button onClick={downloadQRCode}>Baixar QR Code</Button>
-        <Button onClick={() => navigator.clipboard.writeText(codigoPix)}>
-          Copiar Código Pix
-        </Button>
+      {/* QR Code e imagem ao lado */}
+      <div className="flex flex-col md:flex-row items-center justify-between mt-2">
+        <div className="flex flex-col items-center">
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">
+            📲 Faça uma Contribuição via Pix
+          </h2>
+          <QRCodeCanvas value={pixCode} size={200} level="H" />
+          <p className="mt-2 text-sm text-gray-600 text-center">
+            Escaneie o QR Code para apoiar nossa iniciativa.
+          </p>
+        </div>
+        <div className="flex-shrink-0">
+          <Image
+            src="/loginicon.png"
+            width={180}
+            height={136}
+            className="hidden md:block"
+            alt="Ícone que mostra uma nuvem"
+          />
+        </div>
       </div>
     </div>
   );
