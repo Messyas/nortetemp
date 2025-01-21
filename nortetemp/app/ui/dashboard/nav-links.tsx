@@ -4,7 +4,8 @@ import {
   HomeIcon,
   Cog6ToothIcon,
   PencilSquareIcon,
-  PencilIcon,
+  CurrencyDollarIcon,
+  SunIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -29,6 +30,14 @@ export default function NavLinks() {
         icon: Cog6ToothIcon,
       });
     }
+    
+    if (!userLinks.find(link => link.href === '/dashboard/contribuir')) {
+      userLinks.push({
+        name: 'Contribua',
+        href: '/dashboard/contribuir',
+        icon: CurrencyDollarIcon,
+      });
+    }
 
     // Adiciona página de jornalista, se o usuário for jornalista
     if (user.userCategory === 'jornalista') {
@@ -44,7 +53,7 @@ export default function NavLinks() {
       userLinks.push({
         name: 'Agricultor',
         href: '/dashboard/agricultor',
-        icon: PencilIcon, //Achar um que sirva melhor
+        icon: SunIcon, 
       });
     }
   }
