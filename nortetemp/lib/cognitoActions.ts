@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { redirect } from "next/navigation";
 import {
   signUp,
@@ -20,7 +21,7 @@ export async function handleSignUp(
   formData: FormData
 ) {
   try {
-    const userType = String(formData.get("userType")); // Obtendo o tipo de usuário passado
+    const userType = String(formData.get("userType")); 
 
     await signUp({
       username: String(formData.get("email")),
@@ -29,7 +30,7 @@ export async function handleSignUp(
         userAttributes: {
           email: String(formData.get("email")),
           name: String(formData.get("name")),
-          "custom:userType": userType, // Armazena o userType no Cognito
+          "custom:userType": userType, 
         },
         autoSignIn: true, 
       },

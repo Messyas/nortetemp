@@ -4,7 +4,7 @@ import {
   ExclamationCircleIcon,
   KeyIcon,
 } from "@heroicons/react/24/outline";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import {
   handleConfirmUserAttribute,
   handleUpdateUserAttribute,
@@ -16,7 +16,7 @@ import { useActionState } from "react";
 export default function UpdateEmailForm() {
   const user = useAuthUser();
   const [status, dispatch] = useActionState(handleUpdateUserAttribute, "");
-  const [confirmStatus, dispatchConfirm] = useFormState(
+  const [confirmStatus, dispatchConfirm] = useActionState(
     handleConfirmUserAttribute,
     undefined
   );
