@@ -117,6 +117,24 @@ export default function Dashboard() {
           </div>
         ))}
       </div>
+      {/* Convite para o grupo no Telegram */}
+      <div className="mt-10 text-center">
+        <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-xl font-bold mb-4">🌐 Junte-se ao nosso grupo no Telegram!</h2>
+          <p className="text-lg">
+            Receba alertas meteorológicos e atualizações importantes diretamente no seu celular.
+          </p>
+          <a
+            href="https://t.me/+eCG9Ns3kjq83Yjdh"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-4 px-6 py-3 bg-white text-indigo-500 font-semibold rounded-lg shadow-md hover:bg-gray-200 transition"
+          >
+            👉 Entrar no Grupo do Telegram
+          </a>
+        </div>
+      </div>
+
     </div>
   );
 }
