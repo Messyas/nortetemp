@@ -2,12 +2,17 @@
 import {
   fetchAuthSession,
   fetchUserAttributes,
-  getCurrentUser,
-} from 'aws-amplify/auth';
-import { useEffect, useState } from 'react';
+  //getCurrentUser,
+} from "aws-amplify/auth";
+import { useEffect, useState } from "react";
 
 export default function useAuthUser() {
-  const [user, setUser] = useState<{ userCategory?: string; isAdmin?: boolean } | null>(null);
+  const [user, setUser] = useState<{
+    email?: string;
+    name?: string;
+    userCategory?: string;
+    isAdmin?: boolean;
+  } | null>(null);
 
   useEffect(() => {
     async function getUser() {
@@ -17,17 +22,21 @@ export default function useAuthUser() {
           return;
         }
 
-        const currentUser = await getCurrentUser();
+        //const currentUser = await getCurrentUser();
         const attributes = await fetchUserAttributes();
 
         setUser({
-          ...currentUser,
-          userCategory: attributes['custom:userType'] || 'padrao', // Obtém o tipo de usuário
-           // @ts-ignore
-          isAdmin: session.tokens.accessToken.payload['cognito:groups']?.includes('Admins') || false,
+          email: attributes.email, // ✅ Inclui o email sem afetar NavLinks
+          name: attributes.name,
+          userCategory: attributes["custom:userType"] || "padrao",
+          isAdmin:
+            // @ts-ignore
+            session.tokens.accessToken.payload["cognito:groups"]?.includes(
+              "Admins"
+            ) || false,
         });
       } catch (error) {
-        console.error('Erro ao buscar o usuário:', error);
+        console.error("Erro ao buscar o usuário:", error);
       }
     }
 

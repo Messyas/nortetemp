@@ -1,20 +1,22 @@
-import EditablePhoneNumber from "@/app/ui/dashboard/phone-component/EditablePhoneNumber";
 
-export default function Page() {
+import { lusitana } from "@/app/ui/fonts";
+import UpdateEmailForm from "@/app/ui/profile-settings/update-email-form";
+import UpdatePasswordForm from "@/app/ui/profile-settings/update-password-form";
+import UpdateProfileForm from "@/app/ui/profile-settings/update-profile-form";
 
-    return (
-      <div className="flex flex-col p-6 bg-gray-50 rounded-md shadow-md">
-      <h2 className="text-lg font-semibold text-gray-900">Configurações de Notificações</h2>
-      
-      <p className="mt-2 text-gray-600">
-        Aqui você pode adicionar o número de telefone que deseja usar para receber notificações sobre o clima de Manaus no WhatsApp.
-      </p>
-
-      <div className="p-8">
-      <h1 className="text-1xl font-bold mb-4">Editar Número de Telefone</h1>
-      <EditablePhoneNumber initialPhone="(11) 91234-5678" />
-    </div>
-
+export default function Profile() {
+  return (
+    <main>
+      <div className="flex w-full items-center justify-between mb-4">
+        <h1 className={`${lusitana.className} text-2xl`}>Profile Settings</h1>
       </div>
-    );
-  }
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <UpdateProfileForm />
+        <UpdatePasswordForm />
+      </div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-8">
+        <UpdateEmailForm />
+      </div>
+    </main>
+  );
+}
