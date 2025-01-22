@@ -186,6 +186,25 @@ export default function AgricultorDashboard() {
           </div>
         ))}
       </div>
+
+      {/* Link para o grupo do Telegram */}
+      <div className="mt-10 text-center">
+        <div className="bg-gradient-to-r from-blue-500 to-green-500 text-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-xl font-bold mb-4">🌐 Participe do nosso grupo no Telegram!</h2>
+          <p className="text-lg">
+            Fique por dentro das atualizações meteorológicas e dicas exclusivas para agricultores.
+          </p>
+          <a
+            href="https://t.me/+y3R1L-AzHo80YTAx"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-4 px-6 py-3 bg-white text-blue-500 font-semibold rounded-lg shadow-md hover:bg-gray-200 transition"
+          >
+            👉 Acesse o Grupo no Telegram
+          </a>
+        </div>
+      </div>
+
     </div>
   );
 }
