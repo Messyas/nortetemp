@@ -1,20 +1,21 @@
 "use client";
 import { ExclamationCircleIcon, UserIcon } from "@heroicons/react/24/outline";
-import { useFormState, useFormStatus } from "react-dom";
 import { handleUpdateUserAttribute } from "@/lib/cognitoActions";
 import useAuthUser from "@/app/hooks/use-auth-user";
 import { Button } from "../button";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 
 export default function UpdateProfileForm() {
   const user = useAuthUser();
-  const [status, dispatch] = useFormState(handleUpdateUserAttribute, "");
+  const [status, dispatch] = useActionState(handleUpdateUserAttribute, "");
 
   return (
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         <div className="mb-4">
           <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            Name
+            Nome
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
@@ -49,13 +50,13 @@ export default function UpdateProfileForm() {
             <>
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
               <p className="text-sm text-red-500">
-                There was an error updating name.
+                Ocorreu um erro ao atualizar o nome.
               </p>
             </>
           )}
           {status === "success" && (
             <p className="text-sm text-green-500">
-              Name has been updated successfully.
+                 O nome foi atualizado com sucesso.
             </p>
           )}
         </div>
@@ -71,5 +72,5 @@ export default function UpdateProfileForm() {
 function UpdateButton() {
   const { pending } = useFormStatus();
 
-  return <Button aria-disabled={pending}>Update Name</Button>;
+  return <Button aria-disabled={pending}>Atualizar nome</Button>;
 }

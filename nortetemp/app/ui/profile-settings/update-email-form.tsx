@@ -11,10 +11,11 @@ import {
 } from "@/lib/cognitoActions";
 import useAuthUser from "@/app/hooks/use-auth-user";
 import { Button } from "../button";
+import { useActionState } from "react";
 
 export default function UpdateEmailForm() {
   const user = useAuthUser();
-  const [status, dispatch] = useFormState(handleUpdateUserAttribute, "");
+  const [status, dispatch] = useActionState(handleUpdateUserAttribute, "");
   const [confirmStatus, dispatchConfirm] = useFormState(
     handleConfirmUserAttribute,
     undefined
@@ -25,7 +26,7 @@ export default function UpdateEmailForm() {
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         <div className="mb-4">
           <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            Email
+            E-mail
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
@@ -59,13 +60,13 @@ export default function UpdateEmailForm() {
             <>
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
               <p className="text-sm text-red-500">
-                There was an error updating email.
+                Ocorreu um erro ao atualizar o e-mail.
               </p>
             </>
           )}
           {status === "success" && (
             <p className="text-sm text-green-500">
-              Email has been updated successfully.
+              O e-mail foi atualizado com sucesso.
             </p>
           )}
         </div>
@@ -102,13 +103,13 @@ export default function UpdateEmailForm() {
                 <>
                   <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
                   <p className="text-sm text-red-500">
-                    There was an error verifying your email
+                    Ocorreu um erro ao verificar seu e-mail
                   </p>
                 </>
               )}
               {confirmStatus === "success" && (
                 <p className="text-sm text-green-500">
-                  Email verified successfully
+                    E-mail verificado com sucesso
                 </p>
               )}
             </div>
@@ -130,7 +131,7 @@ export default function UpdateEmailForm() {
 function UpdateButton() {
   const { pending } = useFormStatus();
 
-  return <Button aria-disabled={pending}>Update Email</Button>;
+  return <Button aria-disabled={pending}>Atualizar e-mail</Button>;
 }
 
 function VerifyButton({ dispatch }: { dispatch: (payload: FormData) => void }) {
@@ -138,7 +139,7 @@ function VerifyButton({ dispatch }: { dispatch: (payload: FormData) => void }) {
 
   return (
     <Button aria-disabled={pending} formAction={dispatch}>
-      Verify Email
+      Verificar e-mail
     </Button>
   );
 }

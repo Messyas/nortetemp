@@ -8,7 +8,7 @@ export default function Profile() {
   return (
     <main>
       <div className="flex w-full items-center justify-between mb-4">
-        <h1 className={`${lusitana.className} text-2xl`}>Profile Settings</h1>
+        <h1 className={`${lusitana.className} text-2xl`}>Configurações de perfil</h1>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <UpdateProfileForm />

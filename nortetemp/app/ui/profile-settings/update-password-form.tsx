@@ -1,18 +1,19 @@
 "use client";
 import { ExclamationCircleIcon, KeyIcon } from "@heroicons/react/24/outline";
-import { useFormState, useFormStatus } from "react-dom";
 import { handleUpdatePassword } from "@/lib/cognitoActions";
 import { Button } from "../button";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 
 export default function UpdatePasswordForm() {
-  const [status, dispatch] = useFormState(handleUpdatePassword, undefined);
+  const [status, dispatch] = useActionState(handleUpdatePassword, undefined);
 
   return (
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         <div className="mb-4">
           <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            Current Password
+            Senha atual
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
@@ -31,7 +32,7 @@ export default function UpdatePasswordForm() {
         </div>
         <div className="mb-4">
           <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            New Password
+            Nova senha
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
@@ -57,13 +58,13 @@ export default function UpdatePasswordForm() {
             <>
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
               <p className="text-sm text-red-500">
-                There was an error updating password.
+                Ocorreu um erro ao atualizar a senha.
               </p>
             </>
           )}
           {status === "success" && (
             <p className="text-sm text-green-500">
-              Password updated successfully.
+              Senha atualizada com sucesso.
             </p>
           )}
         </div>
@@ -79,5 +80,5 @@ export default function UpdatePasswordForm() {
 function UpdateButton() {
   const { pending } = useFormStatus();
 
-  return <Button aria-disabled={pending}>Update Password</Button>;
+  return <Button aria-disabled={pending}>Atualizar senha</Button>;
 }
