@@ -6,6 +6,7 @@ import Image from "next/image";
 export default function Page() {
   const pixCode =
     "00020101021126360014br.gov.bcb.pix0114+55929852227795204000053039865802BR5914MESSYAS FRANCA6006MANAUS62070503***63041133";
+
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Container centralizado */}
@@ -13,13 +14,13 @@ export default function Page() {
         {/* Cabeçalho e imagem ao lado */}
         <div className="flex flex-col md:flex-row items-center md:justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center md:text-left">
-            🌤️ NorTemp - Monitorando o Tempo por Você
+          🌤️ NorTemp - Seu Monitor do tempo 
           </h1>
           <div>
             <Image
-              src="/loginicon.png"
-              width={180}
-              height={136}
+              src="/nuvem.png"
+              width={200}
+              height={150}
               className="hidden md:block"
               alt="Ícone que mostra uma nuvem"
             />
@@ -29,18 +30,18 @@ export default function Page() {
         {/* Corpo do texto */}
         <div className="text-justify text-gray-700 leading-relaxed mb-8">
           <p className="mb-4">
-            O <strong>NorTemp</strong> é um projeto idealizado por{" "}
-            <strong>Messyas e Lucas Medeiros</strong> com o propósito de
-            oferecer alertas periódicos sobre as condições climáticas. Nossa
-            missão é garantir que você esteja sempre bem informado sobre
-            mudanças no clima, permitindo uma melhor organização e planejamento
-            do seu dia a dia.
+            Seja bem-vindo ao <strong>NorTemp</strong>, um projeto desenvolvido
+            por <strong>Messyas e Lucas Medeiros</strong> com o objetivo de
+            fornecer alertas regulares e confiáveis sobre as condições
+            climáticas. Nossa missão é mantê-lo sempre bem-informado a respeito
+            de possíveis mudanças no tempo, auxiliando-o a planejar o seu dia a
+            dia com mais segurança e praticidade.
           </p>
           <p className="mb-4">
-            Utilizamos tecnologia confiável para coletar e fornecer informações
-            atualizadas, possibilitando que nossos usuários tomem decisões
-            baseadas em dados precisos. Nosso compromisso é manter você um passo
-            à frente das mudanças climáticas.
+            Para isso, utilizamos tecnologia avançada e fontes confiáveis que
+            nos permitem coletar dados precisos em tempo real. Assim, você pode
+            tomar decisões mais acertadas, mantendo-se um passo à frente das
+            alterações climáticas e garantindo uma rotina melhor organizada.
           </p>
         </div>
 
@@ -59,13 +60,15 @@ export default function Page() {
 
           <div className="flex flex-col items-center">
             <Image
-              src="/lucas.png" 
+              src="/lucas.png"
               width={270}
               height={204}
               className="block md:block"
               alt="Imagem do Lucas"
             />
-             <p className="mt-2 font-semibold text-gray-800">Lucas Henrique Medeiros</p>
+            <p className="mt-2 font-semibold text-gray-800">
+              Lucas Henrique Medeiros
+            </p>
           </div>
         </div>
 

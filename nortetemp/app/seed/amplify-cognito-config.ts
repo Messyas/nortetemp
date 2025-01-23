@@ -1,5 +1,4 @@
 "use client"; 
-// Este diretiva habilita o uso de APIs específicas para o cliente no Next.js, como manipulação direta do DOM ou estado do navegador.
 
 import { Amplify, type ResourcesConfig } from "aws-amplify"; 
 // Importa o módulo Amplify para configuração e tipos para melhor tipagem do recurso.
