@@ -60,7 +60,7 @@ export default function Page() {
 
           <div className="flex flex-col items-center">
             <Image
-              src="/messyas.png" // Ajuste depois para a imagem do Lucas, se for o caso
+              src="/lucas.png" 
               width={270}
               height={204}
               className="block md:block"
