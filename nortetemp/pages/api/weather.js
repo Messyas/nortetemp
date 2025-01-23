@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default async function handler(req, res) {
   const { NEXT_PUBLIC_ACCUWEATHER_API_KEY, NEXT_PUBLIC_LOCATION_KEY } = process.env;
-  const url = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${NEXT_PUBLIC_LOCATION_KEY}?apikey=${NEXT_PUBLIC_ACCUWEATHER_API_KEY}&details=true`;
+  const url = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${NEXT_PUBLIC_LOCATION_KEY}?apikey=${NEXT_PUBLIC_ACCUWEATHER_API_KEY}&details=true&language=pt-BR`;
 
   try {
     const response = await axios.get(url);

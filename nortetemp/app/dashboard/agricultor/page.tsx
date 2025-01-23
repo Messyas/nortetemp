@@ -176,7 +176,7 @@ export default function AgricultorDashboard() {
               <p>Máx: {Math.round((day.Temperature.Maximum.Value - 32) * (5 / 9))}°C</p>
               <p>Mín: {Math.round((day.Temperature.Minimum.Value - 32) * (5 / 9))}°C</p>
               <p>Vento: {day.Day.Wind.Speed.Value} km/h</p>
-              <p>Índice UV: {day.Day.UVIndex ? day.Day.UVIndex : 'N/A'}</p>
+              <p>Índice UV: {day.AirAndPollen.find((item) => item.Name === "UVIndex").Category}</p>
             </div>
             <img
               src={`/icons/${day.Day.Icon}.svg`}

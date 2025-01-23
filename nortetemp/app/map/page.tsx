@@ -12,7 +12,7 @@ const WeatherMap = () => {
     const fetchWeatherData = async () => {
       try {
         const response = await fetch(
-          `https://dataservice.accuweather.com/currentconditions/v1/${process.env.NEXT_PUBLIC_LOCATION_KEY}?apikey=${process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY}`
+          `https://dataservice.accuweather.com/currentconditions/v1/${process.env.NEXT_PUBLIC_LOCATION_KEY}?apikey=${process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY}&details=true&language=pt-BR`
         );
         const data = await response.json();
         setWeatherData(data[0]);
@@ -45,7 +45,7 @@ const WeatherMap = () => {
             </div>
             <div className="text-center">
               <h2 className="font-bold text-lg">🌤️ Condições</h2>
-              <p className="text-xl">{translateCondition(weatherData.WeatherText)}</p>
+              <p className="text-xl">{weatherData.WeatherText}</p>
             </div>
             <div className="text-center">
               <h2 className="font-bold text-lg">💧 Umidade</h2>
@@ -109,20 +109,6 @@ const WeatherMap = () => {
       </footer>
     </div>
   );
-};
-
-const translateCondition = (condition: string): string => {
-  const translations: { [key: string]: string } = {
-    Cloudy: 'Nublado',
-    Sunny: 'Ensolarado',
-    Rain: 'Chuva',
-    Snow: 'Neve',
-    Fog: 'Nevoeiro',
-    Clear: 'Limpo',
-    Thunderstorms: 'Trovoadas',
-  };
-
-  return translations[condition] || condition;
 };
 
 export default WeatherMap;
