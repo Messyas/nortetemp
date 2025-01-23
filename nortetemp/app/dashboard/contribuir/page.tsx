@@ -6,7 +6,6 @@ import Image from "next/image";
 export default function Page() {
   const pixCode =
     "00020101021126360014br.gov.bcb.pix0114+55929852227795204000053039865802BR5914MESSYAS FRANCA6006MANAUS62070503***63041133";
-
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Container centralizado */}

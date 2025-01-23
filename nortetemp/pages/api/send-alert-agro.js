@@ -7,7 +7,6 @@ export default async function handler(req, res) {
     const {
       NEXT_PUBLIC_ACCUWEATHER_API_KEY,
       NEXT_PUBLIC_LOCATION_KEY,
-      NEXT_PUBLIC_BOT_AGRO_TOKEN,
       NEXT_PUBLIC_TELEGRAM_API_AGRO_URL,
       NEXT_PUBLIC_CHAT_AGRO_IDS,
     } = process.env;

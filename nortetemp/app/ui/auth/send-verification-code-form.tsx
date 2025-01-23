@@ -5,12 +5,13 @@ import {
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { Button } from "../button";
 import { handleSendEmailVerificationCode } from "@/lib/cognitoActions";
+import { useActionState } from "react";
 
 export default function SendVerificationCode() {
-  const [response, dispatch] = useFormState(handleSendEmailVerificationCode, {
+  const [response, dispatch] = useActionState(handleSendEmailVerificationCode, {
     message: "",
     errorMessage: "",
   });
