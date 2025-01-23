@@ -25,7 +25,7 @@ export default function JornalistaDashboard() {
     const fetchWeatherData = async () => {
       try {
         const response = await axios.get(
-          `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${process.env.NEXT_PUBLIC_LOCATION_KEY}?apikey=${process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY}&metric=true`
+          `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${process.env.NEXT_PUBLIC_LOCATION_KEY}?apikey=${process.env.NEXT_PUBLIC_ACCUWEATHER_API_KEY}&details=true&metric=true`
         );
         setForecastData(response.data.DailyForecasts);
       } catch (error) {
@@ -55,12 +55,8 @@ export default function JornalistaDashboard() {
   const labels = forecastData.map((day) => new Date(day.Date).toLocaleDateString());
   const maxTemperatures = forecastData.map((day) => day.Temperature.Maximum.Value || 0);
   const minTemperatures = forecastData.map((day) => day.Temperature.Minimum.Value || 0);
-  const precipitationProbabilities = forecastData.map((day) =>
-    day.Day?.PrecipitationProbability ?? 0
-  );
-  const thunderstormProbabilities = forecastData.map((day) =>
-    day.Day?.ThunderstormProbability ?? 0
-  );
+  const precipitationProbabilities = forecastData.map((day) => day.Day?.PrecipitationProbability ?? 0);
+  const thunderstormProbabilities = forecastData.map((day) => day.Day?.ThunderstormProbability ?? 0);
 
   const maxTemp = Math.max(...maxTemperatures);
   const minTemp = Math.min(...minTemperatures);
@@ -161,6 +157,23 @@ export default function JornalistaDashboard() {
       <div className="mb-6">
         <h2 className="text-2xl font-bold mb-4">📈 Variações de Temperatura e Probabilidades</h2>
         <Line data={lineChartData} options={options} />
+      </div>
+      {/* Link para o grupo do Telegram */}
+      <div className="mt-10 text-center">
+        <div className="bg-gradient-to-r from-yellow-500 to-red-500 text-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-xl font-bold mb-4">🌐 Participe do nosso grupo no Telegram!</h2>
+          <p className="text-lg">
+            Fique por dentro das atualizações meteorológicas e dicas exclusivas para agricultores.
+          </p>
+          <a
+            href="https://t.me/+j0ZkaAh4dvE1YWEx"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-4 px-6 py-3 bg-white text-blue-500 font-semibold rounded-lg shadow-md hover:bg-gray-200 transition"
+          >
+            👉 Acesse o Grupo no Telegram
+          </a>
+        </div>
       </div>
     </div>
   );
