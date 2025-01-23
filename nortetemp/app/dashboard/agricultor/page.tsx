@@ -129,7 +129,7 @@ export default function AgricultorDashboard() {
       <div className="bg-green-500 text-white p-4 rounded shadow mb-6">
         <p className="font-bold">🌱 Recomendações para Plantio:</p>
         <ul className="list-disc pl-4">
-          <li>Evite plantio em dias com alta probabilidade de chuva (>70%).</li>
+          <li>Evite plantio em dias com alta probabilidade de chuva (&gt;70%).</li>
           <li>Condições favoráveis para plantio em 3 dias.</li>
           <li>Verifique as condições do solo antes do plantio.</li>
         </ul>
@@ -143,7 +143,7 @@ export default function AgricultorDashboard() {
           }
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mr-2"
         >
-          Tempestades > 50%
+          Tempestades &gt; 50%
         </button>
         <button
           onClick={() => setFilteredData(forecastData)}
