@@ -97,8 +97,3 @@ npm run dev
 O projeto estará disponível em \`http://localhost:3000\`.
 
 ---
-
-Se tudo estiver configurado corretamente, você verá a tela de login, e após autenticação, poderá acessar o painel com os dados meteorológicos e o mapa em tempo real.
-
----
-EOF
