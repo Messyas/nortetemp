@@ -1,58 +1,104 @@
 # Projeto NorteTemp
 
-Bem-vindo ao repositório do **NorteTemp**! Este documento fornece as instruções necessárias para instalar e configurar o projeto.
+Bem-vindo ao repositório do **NorteTemp**! Este documento fornece as instruções necessárias para instalar, configurar e executar o projeto.
 
-## Pré-requisitos
-Antes de iniciar, certifique-se de que você possui as seguintes ferramentas instaladas em sua máquina:
+---
 
-- [Node.js](https://nodejs.org/) (versão 15 ou superior recomendada)
-- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/) para gerenciar dependências
-- [Git](https://git-scm.com/) para clonar o repositório
+## 📸 Visão resumida do projeto
 
-## Passo a Passo
+O **NorteTemp** é uma plataforma meteorológica voltada para diferentes tipos de usuários, oferecendo dados em tempo real sobre o clima. O projeto foi desenvolvido com foco em acessibilidade e segmentação de usuários, utilizando serviços em nuvem para autenticação, envio de mensagens e obtenção de dados meteorológicos.
 
-### 1. Clone o Repositório do GitHub
+A autenticação é feita com **AWS Cognito**, permitindo um gerenciamento seguro de usuários (como jornalistas, agricultores e usuários padrão).
 
-Execute o comando abaixo para clonar o repositório do projeto para sua máquina local:
+Além disso, o projeto adota uma **arquitetura de microsserviços**, onde funções serverless via **AWS Lambda** são responsáveis por executar o envio das mensagens de forma isolada e escalável. As funções realizam o **envio periódico de mensagens para bots no Telegram**, de acordo com a segmentação de usuários e dados atualizados do clima.
 
-```bash
+### Tela de Login
+<p align="center">
+  <img src="https://github.com/Messyas/nortetemp/blob/main/nortetemp/public/inicio.png" width="600"/>
+</p>
+
+Usuários autenticados podem visualizar informações meteorológicas relevantes para o seu perfil por meio de um painel interativo:
+
+### Dashboard
+<p align="center">
+  <img src="https://github.com/Messyas/nortetemp/blob/main/nortetemp/public/dashboard.png" width="600"/>
+</p>
+
+Além disso, é possível acompanhar a condição climática em tempo real por meio do mapa:
+
+### Mapa
+<p align="center">
+  <img src="https://github.com/Messyas/nortetemp/blob/main/nortetemp/public/map.png" width="600"/>
+</p>
+
+---
+
+## 🌐 APIs Utilizadas
+
+- **Telegram Bot API**: Envio de mensagens automáticas para canais ou grupos no Telegram, segmentados por tipo de usuário.
+- **AccuWeather API**: Consulta de dados meteorológicos (previsões, localização, etc.).
+- **AWS Cognito**: Autenticação e gerenciamento de usuários.
+- **GNews API**: Coleta de manchetes e notícias meteorológicas.
+
+---
+
+## ⚙️ Pré-requisitos
+
+Antes de iniciar, certifique-se de que você possui as seguintes ferramentas instaladas:
+
+- [Node.js](https://nodejs.org/) (versão 15 ou superior)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+- [Git](https://git-scm.com/)
+
+---
+
+## 🛠️ Instalação Passo a Passo
+
+### 1. Clone o Repositório
+
+\`\`\`bash
 git clone https://github.com/Messyas/nortetemp.git
-```
+\`\`\`
 
-### 2. Acesse o Diretório do Projeto
+### 2. Acesse o Diretório
 
-Entre no diretório do projeto clonado:
-
-```bash
+\`\`\`bash
 cd nortetemp
-```
+\`\`\`
 
 ### 3. Instale as Dependências
 
-Instale todas as dependências necessárias para o projeto. Certifique-se de estar no mesmo diretório onde o arquivo `package.json` está localizado.
-
 #### Usando npm:
-```bash
+
+\`\`\`bash
 npm install --legacy-peer-deps
-```
+\`\`\`
 
-#### Usando yarn:
-```bash
-yarn install --ignore-peer-dependencies
-```
+---
 
-### 4. Inicie o Servidor de Desenvolvimento
+## 🔐 Configuração de Variáveis de Ambiente
 
-Para iniciar o servidor de desenvolvimento, execute o comando:
+O projeto depende de variáveis de ambiente para integração com as APIs externas. Siga os passos abaixo para configurá-las corretamente.
+
+## Crie o arquivo \`.env\`
+
+Na raiz do projeto, crie um arquivo .env e adicione as chaves de API necessárias para rodar a aplicação. O repositório contém um arquivo de exemplo (.env.example) com o nome correto das variáveis de ambiente que devem ser fornecidas.
+
+## ▶️ Rodando o Projeto
+
+Para iniciar o servidor local:
 
 #### Usando npm:
-```bash
+
+\`\`\`bash
 npm run dev
-```
+\`\`\`
 
-#### Usando yarn:
-```bash
-yarn dev
-```
+O projeto estará disponível em \`http://localhost:3000\`.
 
-O servidor será iniciado em `http://localhost:3000` por padrão.
+---
+
+Se tudo estiver configurado corretamente, você verá a tela de login, e após autenticação, poderá acessar o painel com os dados meteorológicos e o mapa em tempo real.
+
+---
+EOF
