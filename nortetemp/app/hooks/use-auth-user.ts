@@ -22,11 +22,10 @@ export default function useAuthUser() {
           return;
         }
 
-        //const currentUser = await getCurrentUser();
         const attributes = await fetchUserAttributes();
 
         setUser({
-          email: attributes.email, // ✅ Inclui o email sem afetar NavLinks
+          email: attributes.email, 
           name: attributes.name,
           userCategory: attributes["custom:userType"] || "padrao",
           isAdmin:

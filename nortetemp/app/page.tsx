@@ -45,7 +45,7 @@ export default function Page() {
               width={200}
               height={152}
               className="block md:hidden"
-              alt="Icone que mostra uma nuvem meu nobre."
+              alt="Icone que mostra uma nuvem menor meu nobre."
            />
     </div>
   </div>
